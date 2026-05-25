@@ -1,0 +1,10 @@
+httpx
+sqlalchemy
+psycopg2-binary
+pydantic
+pydantic-settings
+apscheduler
+fastapi
+uvicorn[standard]
+locust
+pytest
