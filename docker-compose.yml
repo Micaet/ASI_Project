@@ -1,0 +1,29 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: space
+      POSTGRES_PASSWORD: space
+      POSTGRES_DB: space_monitor
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U space -d space_monitor"]
+      interval: 5s
+      retries: 5
+
+  ingestion:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      APP_DATABASE_URL: postgresql://space:space@db:5432/space_monitor
+      APP_LOG_LEVEL: INFO
+      APP_NOMINATIM_USER_AGENT: "SpaceMonitor/1.0 (anthonyrakowski1@gmail.com)"
+    restart: unless-stopped
+
+volumes:
+  pgdata:
