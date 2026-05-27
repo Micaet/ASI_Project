@@ -8,8 +8,8 @@ from app.db.models import Base
 
 engine = create_engine(
     settings.database_url,
-    pool_size=5,
-    max_overflow=10,
+    pool_size=30,
+    max_overflow=60,
     pool_pre_ping=True,
 )
 
