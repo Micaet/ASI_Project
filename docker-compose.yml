@@ -21,7 +21,7 @@ services:
         condition: service_healthy
     environment:
       APP_DATABASE_URL: postgresql://space:space@db:5432/space_monitor
-      APP_LOG_LEVEL: INFO
+      APP_LOG_LEVEL: ${APP_LOG_LEVEL:-INFO}
       APP_NOMINATIM_USER_AGENT: "SpaceMonitor/1.0 (anthonyrakowski1@gmail.com)"
     restart: unless-stopped
 
@@ -34,11 +34,12 @@ services:
         condition: service_healthy
     environment:
       APP_DATABASE_URL: postgresql://space:space@db:5432/space_monitor
-      APP_LOG_LEVEL: INFO
+      APP_LOG_LEVEL: ${APP_LOG_LEVEL:-INFO}
     ports:
       - "8000:8000"
     restart: unless-stopped
 
+  # -- profil prod: frontend przez Nginx --
   frontend:
     profiles: [prod]
     build:
@@ -49,6 +50,28 @@ services:
     depends_on:
       - backend
     restart: unless-stopped
+
+  # -- profil test: testy jednostkowe --
+  tests:
+    profiles: [test]
+    build: .
+    command: pytest -v
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      APP_DATABASE_URL: postgresql://space:space@db:5432/space_monitor
+      APP_LOG_LEVEL: WARNING
+
+  # -- profil test: testy wydajnosciowe --
+  locust:
+    profiles: [test]
+    build: .
+    command: locust -f tests/locustfile.py --host=http://backend:8000
+    ports:
+      - "8089:8089"
+    depends_on:
+      - backend
 
 volumes:
   pgdata:
