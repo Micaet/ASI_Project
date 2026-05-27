@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Space Activity Monitor</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div id="app">
+        <div id="map-container">
+            <div id="map"></div>
+        </div>
+        <aside id="panel">
+            <h1>Space Activity Monitor</h1>
+
+            <section id="iss-section">
+                <h2>Pozycja ISS</h2>
+                <div id="iss-info">
+                    <p class="no-data">Ładowanie...</p>
+                </div>
+            </section>
+
+            <section id="launches-section">
+                <h2>Starty kosmiczne</h2>
+                <div id="launches-list">
+                    <p class="no-data">Ładowanie...</p>
+                </div>
+            </section>
+        </aside>
+    </div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
