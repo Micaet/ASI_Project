@@ -8,7 +8,7 @@ Asynchroniczny klient HTTP dla Pythona. Wybrany zamiast standardowej biblioteki 
 
 ### APScheduler
 
-Scheduler uruchamiający joby cykliczne (polling ISS co 30s, SpaceX co 1h) wewnątrz procesu Pythona, bez potrzeby doinstalowywania crona.
+Scheduler uruchamiający joby cykliczne (polling ISS co 30s, RocketLauch.Live co 1h) wewnątrz procesu Pythona, bez potrzeby doinstalowywania crona.
 
 ## Warstwa przetwarzania
 
